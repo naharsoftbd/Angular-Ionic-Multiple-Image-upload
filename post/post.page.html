@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button size="small" shape="round" (click)="closeModal()" color="tertiary">
+        <ion-icon slot="start" name="close"></ion-icon> Close
+        <ion-back-button></ion-back-button>
+      </ion-button>      
+    </ion-buttons>
+    <ion-button slot="end" color="secondary" (click)="sharePost()">Share</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-card class="bg-white" no-margin>
+    <ion-card-content>
+  		<ion-textarea slot="start" placeholder="What's on your mind? " [(ngModel)]="body"></ion-textarea>
+       <div class="images-preview mt-2" *ngIf="images.length">
+    <div  *ngFor="let photo of images.controls; let i = index;">
+        <div >
+            <img [src]="photo.controls.url.value" height="200" class="card-img-top" alt="Image Preview">
+        </div>
+    </div>
+</div>
+    <form   enctype="multipart/form-data">        
+        <input type="file" class="form-control" class="upload" id="uploadfiles" name="uploadfiles[]" (input)="preview_images($event);" multiple accept="image/gif, image/jpeg,image/png" #fileInput/>
+          <label color="secondary" for="uploadfiles">Upload Photo</label> 
+      </form>
+      <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h3>Image Picker</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button (click)="getImages()">Choose Images</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <!-- More Pinterest floating gallery style -->
+        <div class="images">
+          <div class="one-image" *ngFor="let img of imageResponse">
+            <img src="{{img}}" alt="" srcset="">
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  	</ion-card-content>
+  </ion-card>
+</ion-content>
+
